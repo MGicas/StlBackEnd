@@ -1,0 +1,45 @@
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FacontaryFunctions.Common
+{
+    public class ConectMYSQL
+    {
+        public static async Task<MySqlConnection> ConnAsync()
+        {
+            try
+            {
+
+                string conStr = System.Environment.GetEnvironmentVariable("ConnectionStrings:MySqlConnection");
+
+                if (string.IsNullOrEmpty(conStr)) // Azure Functions App Service naming convention
+                {
+                    conStr = System.Environment.GetEnvironmentVariable($"MYSQLCONNSTR_MySqlConnection");
+                }
+                MySqlConnection connection = new MySqlConnection(conStr);
+                await connection.OpenAsync();
+
+                return connection;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public static void PrepareTextCmd(MySqlCommand cmd)
+        {
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Clear();
+        }
+        public static void PrepareSPCmd(MySqlCommand cmd)
+        {
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Clear();
+        }
+    }
+}
