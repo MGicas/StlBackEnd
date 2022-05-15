@@ -26,7 +26,7 @@ namespace FacontaryFunctions.Dao.UsuarioDao
                                 WHERE (u.NICKNAME = @nickname or u.EMAIL = @email) and u.PASS_WORD = @contraseña;";
             cmd.Parameters.AddWithValue("@nickname", usuarioInput.Usuario);
             cmd.Parameters.AddWithValue("@email", usuarioInput.Email);
-            cmd.Parameters.AddWithValue("@contraseña", usuarioInput.Contraseña);
+            cmd.Parameters.AddWithValue("@contraseña", usuarioInput.Contrasena);
 
             using (var reader = await cmd.ExecuteReaderAsync())
             {

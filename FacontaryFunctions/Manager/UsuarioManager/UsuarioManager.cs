@@ -22,7 +22,7 @@ namespace FacontaryFunctions.Manager.UsuarioManager
                 using (MySqlCommand cmd = mySqlConnection.CreateCommand())
                 {
                     UsuarioDao usuarioDao = new UsuarioDao();
-                    usuarioInput.Contraseña = Encriptar(usuarioInput.Contraseña);
+                    usuarioInput.Contrasena = Encriptar(usuarioInput.Contrasena);
                     usuario = await usuarioDao.ObtenerUsuario(cmd, usuarioInput);
                     if (usuario.IdUsuario != 0) {
                         token = jWTservice.StringToken(usuario);
