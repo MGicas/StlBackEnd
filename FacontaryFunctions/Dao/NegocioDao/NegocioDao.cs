@@ -10,7 +10,7 @@ namespace FacontaryFunctions.Dao.NegocioDao
 {
     class NegocioDao
     {
-        public async Task<NegocioDto> ObtenerNegocio(MySqlCommand cmd, int idNegocio)
+        public async Task<NegocioDto> ObtenerNegocio(MySqlCommand cmd, long idNegocio)
         {
             ConectMYSQL.PrepareTextCmd(cmd);
             NegocioDto negocio = new NegocioDto();
@@ -32,6 +32,20 @@ namespace FacontaryFunctions.Dao.NegocioDao
             }
 
             return negocio;
+        }
+
+        public Task<NegocioInput> CrearNegocio(MySqlCommand cmd, NegocioDto negocio)
+        {
+            NegocioInput negocioRes = new NegocioInput();
+            ConectMYSQL.PrepareTextCmd(cmd);
+            string sql = @"insert into NEGOCIO (DESCRIPCION)
+                            values(@descripcion);";
+            cmd.CommandText = sql;
+            cmd.Parameters.AddWithValue("@descripcion", negocio.Nombre);
+            cmd.ExecuteNonQuery();
+            long lastIdNegocio = cmd.LastInsertedId;
+            negocioRes.IdNegocio = lastIdNegocio;
+            return Task.FromResult(negocioRes);
         }
     }
 }

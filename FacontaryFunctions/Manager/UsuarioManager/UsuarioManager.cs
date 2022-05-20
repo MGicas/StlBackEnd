@@ -1,5 +1,7 @@
 ﻿using FacontaryFunctions.Common;
+using FacontaryFunctions.Dao.NegocioDao;
 using FacontaryFunctions.Dao.UsuarioDao;
+using FacontaryFunctions.Dto.Negocio;
 using FacontaryFunctions.Dto.Usuario;
 using FacontaryFunctions.Services;
 using MySql.Data.MySqlClient;
@@ -30,6 +32,54 @@ namespace FacontaryFunctions.Manager.UsuarioManager
                 }
             }
             return token;
+        }
+
+        public async Task<string> CrearUsuario(UsuarioCrearDto usuarioCrearDto)
+        {
+            string message = string.Empty;
+            NegocioInput negocio = new NegocioInput();
+            UsuarioInput usuarioExistente = new UsuarioInput();
+            using (MySqlConnection mySqlConnection = await ConectMYSQL.ConnAsync())
+            {
+                using (MySqlCommand cmd = mySqlConnection.CreateCommand())
+                {
+                    try
+                    {
+                        UsuarioDao usuarioDao = new UsuarioDao();
+                        NegocioDao negocioDao = new NegocioDao();
+                        usuarioExistente = await usuarioDao.existeNicknameOEmailIgual(cmd, usuarioCrearDto);
+                        if (usuarioExistente.Email == null && usuarioExistente.Usuario == null)
+                        {
+                            if (usuarioCrearDto.Negocio.IdNegocio != null)
+                            {
+                                usuarioCrearDto.Pass = Encriptar(usuarioCrearDto.Pass);
+                                usuarioDao.CrearUsuario(cmd, usuarioCrearDto);
+                                message = "Se creo el Usuario";
+                            }
+                            if (usuarioCrearDto.Negocio.Nombre != null)
+                            {
+                                NegocioDto negocioDto = new NegocioDto();
+                                negocioDto.Nombre = usuarioCrearDto.Negocio.Nombre;
+                                negocio = await negocioDao.CrearNegocio(cmd, negocioDto);
+                                usuarioCrearDto.Negocio.IdNegocio = (int?)negocio.IdNegocio;
+                                usuarioCrearDto.Pass = Encriptar(usuarioCrearDto.Pass);
+                                usuarioDao.CrearUsuario(cmd, usuarioCrearDto);
+                                message = "Se creo el Usuario";
+                            }
+                            return message;
+                        }else
+                        {
+                            message = "El usuario que intenta crear ya existe";
+                            return message;
+                        }
+                    }
+                    catch
+                    {
+                        message = "Ocurrio un error al crear el usuario";
+                        return message;
+                    }
+                }
+            }
         }
 
         /// Encripta una cadena

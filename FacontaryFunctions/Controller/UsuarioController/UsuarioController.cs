@@ -58,6 +58,38 @@ namespace FacontaryFunctions.Controller.UsuarioController
             }
         }
 
+        [FunctionName("crearUsuario")]
+        public static async Task<IActionResult> CrearUsuario(
+    [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] UsuarioCrearDto usuarioCrearDto,
+    ILogger log)
+        {
+            try
+            {
+                log.LogInformation($"Ejecucion crearUsuario");
+                UsuarioManager usuarioManager = new UsuarioManager();
+                string message = await usuarioManager.CrearUsuario(usuarioCrearDto);
+                log.LogInformation($"Cree Usuario");
+                Dictionary<string, object> dictionary = new Dictionary<string, object>();
+                dictionary.Add("version", new { idVersion = 1, fecha = DateTime.Now });
+                dictionary.Add("message", message);
+
+                ContratoServiciosRest contrato = new ContratoServiciosRest("OK", null, dictionary);
+                log.LogInformation($"Cree el contrato");
+
+                return new JsonResult(contrato, new JsonSerializerSettings()
+                {
+                    //NullValueHandling = NullValueHandling.Ignore,
+
+                    ContractResolver = BaseFirstResolver,
+                });
+
+            }
+            catch (Exception e)
+            {
+                return ReturnError(e, "ObtenerUsuario", log);
+            }
+        }
+
         private static IActionResult ReturnError(Exception e, String metodo, ILogger log)
         {
             log.LogError(e, $"error executing method {metodo}");

@@ -20,11 +20,10 @@ namespace FacontaryFunctions.Services
             var payload = new Dictionary<string, object>()
                 {
                     { "idUsuario", usuario.IdUsuario},
-                    {"nickname", usuario.Nickname},
                     {"idPersona", usuario.IdPersona},
                     {"idTipoUsuario", usuario.IdTipoUsuario},
                     {"idNegocio", usuario.IdNegocio},
-                    {"email", usuario.Email},
+                    {"nombre", usuario.Nombre},
                     { "expiredDate", DateTime.Now },
                 };
             return Jose.JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);

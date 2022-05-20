@@ -11,7 +11,7 @@ namespace FacontaryFunctions.Manager.NegocioMaganer
 {
     class NegocioManager
     {
-        public async Task<NegocioDto> ObtenerNegocio(int idNegocio)
+        public async Task<NegocioDto> ObtenerNegocio(long idNegocio)
         {
             NegocioDto negocio = new NegocioDto();
             using (MySqlConnection mySqlConnection = await ConectMYSQL.ConnAsync())

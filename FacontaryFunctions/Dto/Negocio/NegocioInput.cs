@@ -6,6 +6,6 @@ namespace FacontaryFunctions.Dto.Negocio
 {
     class NegocioInput
     {
-        public int IdNegocio { get; set; }
+        public long IdNegocio { get; set; }
     }
 }
