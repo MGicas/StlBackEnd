@@ -59,7 +59,12 @@ las otras personas serán identificadas mediante nuestro sistema RfId
 El diagrama de clases presenta los mismos objetos que se dan en el modelo de dominio y llevan en su mayoría una relación de asociación porque tiene una relación entre ellos pero no es de dependencia, como por ejemplo la relación entre el préstamo y el prestador que es de dependencia puesto que para que se de un préstamo se necesita que haya un prestado. Por otro lado hay unas relaciones de composición porque se bien una necesita de la otra, no son tan necesarias, se componen entres si.
 ### Modelo Entidad Relación
 ![](https://cdn.discordapp.com/attachments/1010673900398587974/1039717978079514654/Relational_1.png)
-Para el MER nos basamos en el diagrama de clases, sin embargo lo que eran monitor, administrador, y prestador se combinar y sólo quedó persona puesto que compartían los mismos atributos, aunque se creó una entidad de prestador para que llevara los datos adicionales que lleva éste.
+Para el MER nos basamos en el diagrama de clases, sin embargo lo que eran monitor, administrador, y prestador se combinar y sólo quedó persona puesto que compartían los mismos atributos, aunque se creó una entidad de prestador para que llevara los datos adicionales que lleva éste.  
+### Diagrama de Componentes BackEnd
+![](https://cdn.discordapp.com/attachments/1039553534510776331/1039761174679535708/image.png) 
+### Diagrama de Paquetes BackEnd
+![](https://cdn.discordapp.com/attachments/974810763707420733/1039763605496795166/image.png)
+
 ### Diagrama de Actividades 
 ![](https://cdn.discordapp.com/attachments/615334583864393780/1039722740111904818/image.png)
 Para el registro de una persona en la aplicación es necesario que se valide que los datos ingresados sean válidos, si lo son se procede a validar que esta persona no exista aún, si lo hace se manda un mensaje donde se informa al usuario que dicha persona ya se encuentra en la base de datos; por otro lado si el usuario no existe, con los datos ingresados se registra la persona
