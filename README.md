@@ -63,7 +63,7 @@ Para el MER nos basamos en el diagrama de clases, sin embargo lo que eran monito
 ### Diagrama de Componentes BackEnd
 ![](https://cdn.discordapp.com/attachments/1039553534510776331/1039761174679535708/image.png) 
 ### Diagrama de Paquetes BackEnd
-![](https://cdn.discordapp.com/attachments/974810763707420733/1039763605496795166/image.png)
+![](https://cdn.discordapp.com/attachments/974810763707420733/1039765592489594920/ProyectoExtraClase-DiagramaDePaquetes.drawio.png)
 
 ### Diagrama de Actividades 
 ![](https://cdn.discordapp.com/attachments/615334583864393780/1039722740111904818/image.png)
